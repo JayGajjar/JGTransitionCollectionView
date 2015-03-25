@@ -4,8 +4,11 @@
 A iOS swift base collectionview with unique animation feature inspired from dirbbble made using UICollectionView.
 https://www.behance.net/gallery/13691641/GIF-Abracadabra-App
 
+![alt tag](https://github.com/JayGajjar/JGTransitionCollectionView/blob/master/JGTransitionCollectionView/JGTransitionCollectionView.gif)
+
 # Installation
-    Copy all the files form JGTransitionCollectionView/classes folder. Assign class JGTransitionCollectionView to UICollectionView from storyboard
+    Copy all the files form JGTransitionCollectionView/classes folder. 
+    Assign class JGTransitionCollectionView to UICollectionView from storyboard
 
 # Usage
 Simply use it as normal collection view by calling its delegate and datasource methods
