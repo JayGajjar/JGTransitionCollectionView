@@ -6,4 +6,11 @@
 //  Copyright (c) 2015 Jay. All rights reserved.
 //
 
+import UIKit
 import Foundation
+
+class JGCustomCell: UICollectionViewCell {
+    
+    @IBOutlet weak var backgroundImage: UIImageView!
+    
+}

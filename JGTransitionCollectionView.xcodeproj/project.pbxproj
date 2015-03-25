@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		699E38D81AC1924E00833AE7 /* JGTransitionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E38D61AC1924E00833AE7 /* JGTransitionCollectionView.swift */; };
+		699E38D91AC1924E00833AE7 /* JGTransitionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E38D71AC1924E00833AE7 /* JGTransitionLayout.swift */; };
+		699E38DC1AC1928700833AE7 /* JGCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E38DA1AC1928700833AE7 /* JGCustomCell.swift */; };
+		699E38DD1AC1928700833AE7 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E38DB1AC1928700833AE7 /* UIColor+RGB.swift */; };
 		69C7D9C81ABFF344005BEE91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C7D9C71ABFF344005BEE91 /* AppDelegate.swift */; };
 		69C7D9CA1ABFF344005BEE91 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C7D9C91ABFF344005BEE91 /* ViewController.swift */; };
 		69C7D9CD1ABFF344005BEE91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69C7D9CB1ABFF344005BEE91 /* Main.storyboard */; };
@@ -26,6 +30,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		699E38D61AC1924E00833AE7 /* JGTransitionCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JGTransitionCollectionView.swift; sourceTree = "<group>"; };
+		699E38D71AC1924E00833AE7 /* JGTransitionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JGTransitionLayout.swift; sourceTree = "<group>"; };
+		699E38DA1AC1928700833AE7 /* JGCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JGCustomCell.swift; sourceTree = "<group>"; };
+		699E38DB1AC1928700833AE7 /* UIColor+RGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
 		69C7D9C21ABFF344005BEE91 /* JGTransitionCollectionView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JGTransitionCollectionView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69C7D9C61ABFF344005BEE91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69C7D9C71ABFF344005BEE91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +64,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		699E38D51AC1924E00833AE7 /* classes */ = {
+			isa = PBXGroup;
+			children = (
+				699E38D61AC1924E00833AE7 /* JGTransitionCollectionView.swift */,
+				699E38D71AC1924E00833AE7 /* JGTransitionLayout.swift */,
+			);
+			path = classes;
+			sourceTree = "<group>";
+		};
 		69C7D9B91ABFF344005BEE91 = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +94,9 @@
 		69C7D9C41ABFF344005BEE91 /* JGTransitionCollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				699E38DA1AC1928700833AE7 /* JGCustomCell.swift */,
+				699E38DB1AC1928700833AE7 /* UIColor+RGB.swift */,
+				699E38D51AC1924E00833AE7 /* classes */,
 				69C7D9C71ABFF344005BEE91 /* AppDelegate.swift */,
 				69C7D9C91ABFF344005BEE91 /* ViewController.swift */,
 				69C7D9CB1ABFF344005BEE91 /* Main.storyboard */,
@@ -212,8 +232,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				699E38D81AC1924E00833AE7 /* JGTransitionCollectionView.swift in Sources */,
+				699E38DD1AC1928700833AE7 /* UIColor+RGB.swift in Sources */,
+				699E38D91AC1924E00833AE7 /* JGTransitionLayout.swift in Sources */,
 				69C7D9CA1ABFF344005BEE91 /* ViewController.swift in Sources */,
 				69C7D9C81ABFF344005BEE91 /* AppDelegate.swift in Sources */,
+				699E38DC1AC1928700833AE7 /* JGCustomCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +360,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = JGTransitionCollectionView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -346,6 +371,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = JGTransitionCollectionView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -405,6 +431,7 @@
 				69C7D9E31ABFF345005BEE91 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		69C7D9E41ABFF345005BEE91 /* Build configuration list for PBXNativeTarget "JGTransitionCollectionViewTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +440,7 @@
 				69C7D9E61ABFF345005BEE91 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
