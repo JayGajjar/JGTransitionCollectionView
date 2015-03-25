@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6978DE421AC280A000247608 /* JGTransitionCollectionView.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6978DE411AC280A000247608 /* JGTransitionCollectionView.gif */; };
 		699E38D81AC1924E00833AE7 /* JGTransitionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E38D61AC1924E00833AE7 /* JGTransitionCollectionView.swift */; };
 		699E38D91AC1924E00833AE7 /* JGTransitionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E38D71AC1924E00833AE7 /* JGTransitionLayout.swift */; };
 		699E38DC1AC1928700833AE7 /* JGCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E38DA1AC1928700833AE7 /* JGCustomCell.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6978DE411AC280A000247608 /* JGTransitionCollectionView.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = JGTransitionCollectionView.gif; sourceTree = "<group>"; };
 		699E38D61AC1924E00833AE7 /* JGTransitionCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JGTransitionCollectionView.swift; sourceTree = "<group>"; };
 		699E38D71AC1924E00833AE7 /* JGTransitionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JGTransitionLayout.swift; sourceTree = "<group>"; };
 		699E38DA1AC1928700833AE7 /* JGCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JGCustomCell.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 		69C7D9C41ABFF344005BEE91 /* JGTransitionCollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				6978DE411AC280A000247608 /* JGTransitionCollectionView.gif */,
 				699E38DA1AC1928700833AE7 /* JGCustomCell.swift */,
 				699E38DB1AC1928700833AE7 /* UIColor+RGB.swift */,
 				699E38D51AC1924E00833AE7 /* classes */,
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69C7D9CD1ABFF344005BEE91 /* Main.storyboard in Resources */,
+				6978DE421AC280A000247608 /* JGTransitionCollectionView.gif in Resources */,
 				69C7D9D21ABFF344005BEE91 /* LaunchScreen.xib in Resources */,
 				69C7D9CF1ABFF344005BEE91 /* Images.xcassets in Resources */,
 			);
