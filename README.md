@@ -1,7 +1,7 @@
 # JGTransitionCollectionView
 =================================
 
-A iOS swift base collectionview with unique animation feature inspired from dirbbble made using UICollectionView.
+A iOS swift base collectionview with unique animation feature inspired from behance made using UICollectionView.
 https://www.behance.net/gallery/13691641/GIF-Abracadabra-App
 
 ![alt tag](https://github.com/JayGajjar/JGTransitionCollectionView/blob/master/JGTransitionCollectionView/JGTransitionCollectionView.gif)
