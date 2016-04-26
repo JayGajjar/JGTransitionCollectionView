@@ -18,17 +18,22 @@ import UIKit
 
 class JGTransitionCollectionView: UICollectionView,UICollectionViewDataSource {
     var jgDatasource : JGTransitionCollectionViewDatasource?
-    var dataArray : NSMutableArray = NSMutableArray()
+    var dataArray : NSMutableArray = NSMutableArray() {
+        didSet {
+            self.secondaryDataArray.addObject(dataArray.firstObject!)
+            self.animate = true
+        }
+    }
     var secondaryDataArray : NSMutableArray = NSMutableArray()
     
     private var animate : Bool = true
     
     // MARK: Initialisation
-    override init() {
-        super.init()
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: frame, collectionViewLayout: layout)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -41,17 +46,18 @@ class JGTransitionCollectionView: UICollectionView,UICollectionViewDataSource {
     // MARK: UICollectionViewDataSource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.secondaryDataArray.count;
-        
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell : UICollectionViewCell = jgDatasource!.collectionView(self, cellForItemAtIndexPath: indexPath)
+        let cell : UICollectionViewCell = jgDatasource!.collectionView(self, cellForItemAtIndexPath: indexPath)
         cell.backgroundColor = UIColor.clearColor()
-        if (indexPath.row < 7 && animate == true) {
-            var progress = 0.0;
+        if (indexPath.row == secondaryDataArray.count-1 && indexPath.row < 8 && animate == true) {
+            self.animate = false
+
+            let progress = 0.0;
             var transform = CATransform3DIdentity;
             transform.m34 = -1.0/500.0;
-            var angle = (1 - progress) * M_PI_2;
+            let angle = (1 - progress) * M_PI_2;
             if ((indexPath.row) % 4 == 3) {
                 //left (perfect)
                 self.setAnchorPoint(CGPointMake(1, 0.5), view: cell.contentView)
@@ -71,23 +77,22 @@ class JGTransitionCollectionView: UICollectionView,UICollectionViewDataSource {
             }
             
             cell.contentView.layer.transform = transform;
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
+            UIView.animateWithDuration(0.5, animations: {
                 cell.contentView.layer.transform = CATransform3DIdentity;
-                }) { (finished) -> Void in
+                }, completion: { (finished) in
+                    cell.contentView.layer.transform = CATransform3DIdentity;
+                    self.animate = true
                     self.reloadDataWithTransition(indexPath);
-            }
+            })
         }
-        
         return cell;
     }
     
-    
     func reloadDataWithTransition(indexPath : NSIndexPath) {
-        
-        if (indexPath.row < self.dataArray.count-1 && indexPath.row < 7 && self.animate == true) {
-            
+        if (indexPath.row < self.dataArray.count-1 && indexPath.row < 8 && self.animate == true) {
             self.secondaryDataArray.addObject(self.dataArray[(indexPath.row+1)]);
-            self.insertItemsAtIndexPaths([NSIndexPath(forItem: indexPath.row+1, inSection: indexPath.section)])
+//            self.insertItemsAtIndexPaths([NSIndexPath(forItem: indexPath.row+1, inSection: indexPath.section)])
+            self.reloadData()
             if indexPath.row == 6 {
                 self.animate = false;
                 self.secondaryDataArray = self.dataArray;
@@ -103,7 +108,7 @@ class JGTransitionCollectionView: UICollectionView,UICollectionViewDataSource {
     
     
     // MARK: HelperMethods
-    func setAnchorPoint(anchorPoint : CGPoint,var view : UIView) {
+    func setAnchorPoint(anchorPoint : CGPoint, view : UIView) {
         var newPoint = CGPointMake(view.bounds.size.width * anchorPoint.x, view.bounds.size.height * anchorPoint.y);
         var oldPoint = CGPointMake(view.bounds.size.width * view.layer.anchorPoint.x, view.bounds.size.height * view.layer.anchorPoint.y);
         
@@ -121,11 +126,4 @@ class JGTransitionCollectionView: UICollectionView,UICollectionViewDataSource {
         view.layer.position = position;
         view.layer.anchorPoint = anchorPoint;
     }
-    
-    func setDataArray(array : NSArray){
-        self.dataArray = array.mutableCopy() as NSMutableArray
-        self.secondaryDataArray.addObject(array.firstObject!)
-    }
-    
-    
 }

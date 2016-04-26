@@ -15,9 +15,8 @@ class JGTransitionLayout: UICollectionViewLayout {
     var itemSize : CGSize = CGSizeZero
     
     func commonInit(){
-//self.itemSize = CGSizeMake(self.collectionView!.frame.size.width/2, self.collectionView!.frame.size.width/2)
-        self.itemSize = CGSizeMake(320/2, 320/2)
-
+        let screenSize = UIScreen.mainScreen().bounds.size
+        self.itemSize = CGSizeMake(screenSize.width/2, screenSize.width/2)
     }
     
     override init() {
@@ -26,18 +25,18 @@ class JGTransitionLayout: UICollectionViewLayout {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.commonInit()
     }
     
     override func prepareLayout() {
-        var itemCount = self.collectionView?.numberOfItemsInSection(0);
-        var layoutAttr = NSMutableDictionary();
+        let itemCount = self.collectionView?.numberOfItemsInSection(0);
+        let layoutAttr = NSMutableDictionary();
         var y : CGFloat = 0
         var x : CGFloat = 0;
-        for (var i = 0; i<itemCount; i++) {
-            var indexPath = NSIndexPath(forItem: i, inSection: 0);
-            var attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+        for (var i = 0; i<itemCount; i += 1) {
+            let indexPath = NSIndexPath(forItem: i, inSection: 0);
+            let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
             var frame : CGRect
             if (indexPath.row == 0) {
                 x = 0;
@@ -65,20 +64,20 @@ class JGTransitionLayout: UICollectionViewLayout {
         layoutAttributes=layoutAttr;
     }
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
-        var layoutAttr = NSMutableArray();
+    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        var layoutAttr = [UICollectionViewLayoutAttributes]();
         layoutAttributes.enumerateKeysAndObjectsUsingBlock { (indexPath, attributes, stop) -> Void in
             if (CGRectIntersectsRect(rect, attributes.frame)){
-                layoutAttr.addObject(attributes)
+                layoutAttr.append(attributes as! UICollectionViewLayoutAttributes)
             }
         }
-        return layoutAttr;
+        return layoutAttr
     }
     
     override func collectionViewContentSize() -> CGSize {
-        var itemCount = self.collectionView?.numberOfItemsInSection(0)
-        var width = self.collectionView!.frame.size.width
-        var height = self.itemSize.height * CGFloat(itemCount! / 2)
+        let itemCount = self.collectionView?.numberOfItemsInSection(0)
+        let width = self.collectionView!.frame.size.width
+        let height = self.itemSize.height * CGFloat(itemCount! / 2)
         return CGSizeMake(width, height);
     }
     
@@ -90,8 +89,8 @@ class JGTransitionLayout: UICollectionViewLayout {
         return nil
     }
     
-    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
-        return self.layoutAttributes[indexPath] as UICollectionViewLayoutAttributes
+    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        return self.layoutAttributes[indexPath] as? UICollectionViewLayoutAttributes
     }
     
 }

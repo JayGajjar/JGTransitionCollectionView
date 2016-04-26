@@ -11,7 +11,6 @@
 		699E38D81AC1924E00833AE7 /* JGTransitionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E38D61AC1924E00833AE7 /* JGTransitionCollectionView.swift */; };
 		699E38D91AC1924E00833AE7 /* JGTransitionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E38D71AC1924E00833AE7 /* JGTransitionLayout.swift */; };
 		699E38DC1AC1928700833AE7 /* JGCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E38DA1AC1928700833AE7 /* JGCustomCell.swift */; };
-		699E38DD1AC1928700833AE7 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E38DB1AC1928700833AE7 /* UIColor+RGB.swift */; };
 		69C7D9C81ABFF344005BEE91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C7D9C71ABFF344005BEE91 /* AppDelegate.swift */; };
 		69C7D9CA1ABFF344005BEE91 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C7D9C91ABFF344005BEE91 /* ViewController.swift */; };
 		69C7D9CD1ABFF344005BEE91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69C7D9CB1ABFF344005BEE91 /* Main.storyboard */; };
@@ -35,7 +34,6 @@
 		699E38D61AC1924E00833AE7 /* JGTransitionCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JGTransitionCollectionView.swift; sourceTree = "<group>"; };
 		699E38D71AC1924E00833AE7 /* JGTransitionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JGTransitionLayout.swift; sourceTree = "<group>"; };
 		699E38DA1AC1928700833AE7 /* JGCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JGCustomCell.swift; sourceTree = "<group>"; };
-		699E38DB1AC1928700833AE7 /* UIColor+RGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
 		69C7D9C21ABFF344005BEE91 /* JGTransitionCollectionView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JGTransitionCollectionView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69C7D9C61ABFF344005BEE91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69C7D9C71ABFF344005BEE91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,7 +96,6 @@
 			children = (
 				6978DE411AC280A000247608 /* JGTransitionCollectionView.gif */,
 				699E38DA1AC1928700833AE7 /* JGCustomCell.swift */,
-				699E38DB1AC1928700833AE7 /* UIColor+RGB.swift */,
 				699E38D51AC1924E00833AE7 /* classes */,
 				69C7D9C71ABFF344005BEE91 /* AppDelegate.swift */,
 				69C7D9C91ABFF344005BEE91 /* ViewController.swift */,
@@ -179,7 +176,9 @@
 		69C7D9BA1ABFF344005BEE91 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastSwiftMigration = 0730;
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Jay;
 				TargetAttributes = {
 					69C7D9C11ABFF344005BEE91 = {
@@ -237,7 +236,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				699E38D81AC1924E00833AE7 /* JGTransitionCollectionView.swift in Sources */,
-				699E38DD1AC1928700833AE7 /* UIColor+RGB.swift in Sources */,
 				699E38D91AC1924E00833AE7 /* JGTransitionLayout.swift in Sources */,
 				69C7D9CA1ABFF344005BEE91 /* ViewController.swift in Sources */,
 				69C7D9C81ABFF344005BEE91 /* AppDelegate.swift in Sources */,
@@ -303,6 +301,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -367,6 +366,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = JGTransitionCollectionView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -378,6 +378,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = JGTransitionCollectionView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -396,6 +397,7 @@
 				);
 				INFOPLIST_FILE = JGTransitionCollectionViewTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JGTransitionCollectionView.app/JGTransitionCollectionView";
 			};
@@ -411,6 +413,7 @@
 				);
 				INFOPLIST_FILE = JGTransitionCollectionViewTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JGTransitionCollectionView.app/JGTransitionCollectionView";
 			};

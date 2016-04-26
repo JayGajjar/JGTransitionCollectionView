@@ -17,7 +17,7 @@ class ViewController: UIViewController , JGTransitionCollectionViewDatasource {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.loadData()
-        self.collView.setDataArray(self.dataSource)
+        self.collView.dataArray = self.dataSource.mutableCopy() as! NSMutableArray
         self.collView.jgDatasource = self;
     }
 
@@ -26,30 +26,29 @@ class ViewController: UIViewController , JGTransitionCollectionViewDatasource {
         // Dispose of any resources that can be recreated.
     }
 
-
+    //MARK : UICollection View Methods
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell: JGCustomCell  = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as JGCustomCell;
-        var dataDict = self.dataSource.objectAtIndex(indexPath.row) as NSDictionary
-        cell.contentView.backgroundColor = dataDict["color"] as? UIColor
-        cell.backgroundImage.image = UIImage(named: NSString(format: "car%d", indexPath.row+1))
+        let cell: JGCustomCell  = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! JGCustomCell;        
+        let image_index = indexPath.row % 8;
+        cell.backgroundImage.image = UIImage(named: "car\(image_index+1)")
         return cell;
+    }
+    
+    //MARK : Button Actions
+    @IBAction func refresh(sender: AnyObject) {
+        self.collView.dataArray.removeAllObjects()
+        self.collView.reloadData();
+        self.collView.dataArray = self.dataSource.mutableCopy() as! NSMutableArray
+        self.collView.reloadData();
     }
     
     //MARK : Helpers
     func loadData(){
-        self.dataSource = NSMutableArray()
-        self.dataSource.addObject(NSDictionary(objectsAndKeys: UIColor().colorWithHex("#3F1A3B"),"color"))
-        self.dataSource.addObject(NSDictionary(objectsAndKeys: UIColor().colorWithHex("#522448"),"color"))
-        self.dataSource.addObject(NSDictionary(objectsAndKeys: UIColor().colorWithHex("#662F42"),"color"))
-        self.dataSource.addObject(NSDictionary(objectsAndKeys: UIColor().colorWithHex("#906173"),"color"))
-        self.dataSource.addObject(NSDictionary(objectsAndKeys: UIColor().colorWithHex("#97954B"),"color"))
-        self.dataSource.addObject(NSDictionary(objectsAndKeys: UIColor().colorWithHex("#6F6580"),"color"))
-        self.dataSource.addObject(NSDictionary(objectsAndKeys: UIColor().colorWithHex("#FED674"),"color"))
-        self.dataSource.addObject(NSDictionary(objectsAndKeys: UIColor().colorWithHex("#B1333E"),"color"))
+        self.dataSource = ["1","2","3","4","5","6","7","8","9","10","11","12"]
     }
 }
 
