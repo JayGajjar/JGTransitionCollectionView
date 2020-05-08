@@ -6,27 +6,26 @@
 //  Copyright (c) 2015 Jay. All rights reserved.
 //
 
+
 import Foundation
 import UIKit
 
-@objc protocol JGTransitionCollectionViewDatasource: UICollectionViewDataSource {
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
-    // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
-    optional func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int
+protocol JGTransitionCollectionViewDatasource: UICollectionViewDataSource {
+    func collectionView(_ JGcollectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    func collectionView(_ JGCollectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
 }
 
 class JGTransitionCollectionView: UICollectionView,UICollectionViewDataSource {
     var jgDatasource : JGTransitionCollectionViewDatasource?
     var dataArray : NSMutableArray = NSMutableArray() {
         didSet {
-            self.secondaryDataArray.addObject(dataArray.firstObject!)
+            self.secondaryDataArray.add(dataArray.firstObject!)
             self.animate = true
         }
     }
     var secondaryDataArray : NSMutableArray = NSMutableArray()
     
-    private var animate : Bool = true
+    fileprivate var animate : Bool = true
     
     // MARK: Initialisation
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
@@ -44,76 +43,76 @@ class JGTransitionCollectionView: UICollectionView,UICollectionViewDataSource {
     }
     
     // MARK: UICollectionViewDataSource
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.secondaryDataArray.count;
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.secondaryDataArray.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell : UICollectionViewCell = jgDatasource!.collectionView(self, cellForItemAtIndexPath: indexPath)
-        cell.backgroundColor = UIColor.clearColor()
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell : UICollectionViewCell = jgDatasource!.collectionView(self, cellForItemAt: indexPath)
+        cell.backgroundColor = UIColor.clear
         if (indexPath.row == secondaryDataArray.count-1 && indexPath.row < 8 && animate == true) {
             self.animate = false
-
-            let progress = 0.0;
-            var transform = CATransform3DIdentity;
-            transform.m34 = -1.0/500.0;
-            let angle = (1 - progress) * M_PI_2;
+            
+            let progress = 0.0
+            var transform = CATransform3DIdentity
+            transform.m34 = -1.0/500.0
+            let angle = (1 - progress) * Double.pi/2
             if ((indexPath.row) % 4 == 3) {
                 //left (perfect)
-                self.setAnchorPoint(CGPointMake(1, 0.5), view: cell.contentView)
-                transform = CATransform3DRotate(transform, CGFloat(-angle), 0, 1, 0  );
+                self.setAnchorPoint(CGPoint(x: 1, y: 0.5), view: cell.contentView)
+                transform = CATransform3DRotate(transform, CGFloat(-angle), 0, 1, 0  )
             }else if ((indexPath.row) % 4 == 2){
                 //bottom followed by right
-                self.setAnchorPoint(CGPointMake(0.5, 0), view: cell.contentView)
-                transform = CATransform3DRotate(transform, CGFloat(-angle), 1, 0, 0  );
+                self.setAnchorPoint(CGPoint(x: 0.5, y: 0), view: cell.contentView)
+                transform = CATransform3DRotate(transform, CGFloat(-angle), 1, 0, 0  )
             }else if ((indexPath.row) % 4 == 1){
                 //right (prtfect)
-                self.setAnchorPoint(CGPointMake(0, 0.5), view: cell.contentView)
-                transform = CATransform3DRotate(transform, CGFloat(angle), 0, 1, 0  );
+                self.setAnchorPoint(CGPoint(x: 0, y: 0.5), view: cell.contentView)
+                transform = CATransform3DRotate(transform, CGFloat(angle), 0, 1, 0  )
             }else if ((indexPath.row) % 4 == 0){
                 //bottm
-                self.setAnchorPoint(CGPointMake(0.5, 0), view: cell.contentView)
-                transform = CATransform3DRotate(transform, CGFloat(-angle), 1, 0, 0  );
+                self.setAnchorPoint(CGPoint(x: 0.5, y: 0), view: cell.contentView)
+                transform = CATransform3DRotate(transform, CGFloat(-angle), 1, 0, 0  )
             }
             
-            cell.contentView.layer.transform = transform;
-            UIView.animateWithDuration(0.5, animations: {
-                cell.contentView.layer.transform = CATransform3DIdentity;
-                }, completion: { (finished) in
-                    cell.contentView.layer.transform = CATransform3DIdentity;
-                    self.animate = true
-                    self.reloadDataWithTransition(indexPath);
+            cell.contentView.layer.transform = transform
+            UIView.animate(withDuration: 0.5, animations: {
+                cell.contentView.layer.transform = CATransform3DIdentity
+            }, completion: { (finished) in
+                cell.contentView.layer.transform = CATransform3DIdentity
+                self.animate = true
+                self.reloadDataWithTransition(indexPath)
             })
         }
-        return cell;
+        return cell
     }
     
-    func reloadDataWithTransition(indexPath : NSIndexPath) {
+    func reloadDataWithTransition(_ indexPath : IndexPath) {
         if (indexPath.row < self.dataArray.count-1 && indexPath.row < 8 && self.animate == true) {
-            self.secondaryDataArray.addObject(self.dataArray[(indexPath.row+1)]);
-//            self.insertItemsAtIndexPaths([NSIndexPath(forItem: indexPath.row+1, inSection: indexPath.section)])
+            self.secondaryDataArray.add(self.dataArray[(indexPath.row+1)])
+            //            self.insertItemsAtIndexPaths([NSIndexPath(forItem: indexPath.row+1, inSection: indexPath.section)])
             self.reloadData()
             if indexPath.row == 6 {
-                self.animate = false;
-                self.secondaryDataArray = self.dataArray;
+                self.animate = false
+                self.secondaryDataArray = self.dataArray
                 self.reloadData()
             }else{
                 self.animate = true
             }
         }else{
-            self.animate = false;
-            self.dataArray = self.secondaryDataArray;
+            self.animate = false
+            self.dataArray = self.secondaryDataArray
         }
     }
     
     
     // MARK: HelperMethods
-    func setAnchorPoint(anchorPoint : CGPoint, view : UIView) {
-        var newPoint = CGPointMake(view.bounds.size.width * anchorPoint.x, view.bounds.size.height * anchorPoint.y);
-        var oldPoint = CGPointMake(view.bounds.size.width * view.layer.anchorPoint.x, view.bounds.size.height * view.layer.anchorPoint.y);
+    func setAnchorPoint(_ anchorPoint : CGPoint, view : UIView) {
+        var newPoint = CGPoint(x: view.bounds.size.width * anchorPoint.x, y: view.bounds.size.height * anchorPoint.y);
+        var oldPoint = CGPoint(x: view.bounds.size.width * view.layer.anchorPoint.x, y: view.bounds.size.height * view.layer.anchorPoint.y);
         
-        newPoint = CGPointApplyAffineTransform(newPoint, view.transform);
-        oldPoint = CGPointApplyAffineTransform(oldPoint, view.transform);
+        newPoint = newPoint.applying(view.transform);
+        oldPoint = oldPoint.applying(view.transform);
         
         var position = view.layer.position;
         
