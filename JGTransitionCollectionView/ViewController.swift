@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController , JGTransitionCollectionViewDatasource {
+class ViewController: UIViewController, JGTransitionCollectionViewDatasource {
 
     @IBOutlet weak var collView: JGTransitionCollectionView!
     var dataSource : NSMutableArray = NSMutableArray()
@@ -18,7 +18,7 @@ class ViewController: UIViewController , JGTransitionCollectionViewDatasource {
         // Do any additional setup after loading the view, typically from a nib.
         self.loadData()
         self.collView.dataArray = self.dataSource.mutableCopy() as! NSMutableArray
-        self.collView.jgDatasource = self;
+        self.collView.jgDatasource = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,23 +27,24 @@ class ViewController: UIViewController , JGTransitionCollectionViewDatasource {
     }
 
     //MARK : UICollection View Methods
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ JGCollectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         return dataSource.count
+        
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell: JGCustomCell  = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! JGCustomCell;        
-        let image_index = indexPath.row % 8;
+    func collectionView(_ JGCollectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: JGCustomCell  = JGCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! JGCustomCell
+        let image_index = indexPath.row % 8
         cell.backgroundImage.image = UIImage(named: "car\(image_index+1)")
-        return cell;
+        return cell
     }
     
     //MARK : Button Actions
-    @IBAction func refresh(sender: AnyObject) {
+    @IBAction func refreshTapped(_ sender: Any) {
         self.collView.dataArray.removeAllObjects()
-        self.collView.reloadData();
+        self.collView.reloadData()
         self.collView.dataArray = self.dataSource.mutableCopy() as! NSMutableArray
-        self.collView.reloadData();
+        self.collView.reloadData()
     }
     
     //MARK : Helpers

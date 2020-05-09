@@ -8,15 +8,28 @@
 
 import UIKit
 import Foundation
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
+}
+
 
 class JGTransitionLayout: UICollectionViewLayout {
     
     var layoutAttributes : NSMutableDictionary = NSMutableDictionary()
-    var itemSize : CGSize = CGSizeZero
+    var itemSize : CGSize = CGSize.zero
     
     func commonInit(){
-        let screenSize = UIScreen.mainScreen().bounds.size
-        self.itemSize = CGSizeMake(screenSize.width/2, screenSize.width/2)
+        let screenSize = UIScreen.main.bounds.size
+        self.itemSize = CGSize(width: screenSize.width/2 , height: screenSize.width/2)
     }
     
     override init() {
@@ -29,31 +42,32 @@ class JGTransitionLayout: UICollectionViewLayout {
         self.commonInit()
     }
     
-    override func prepareLayout() {
-        let itemCount = self.collectionView?.numberOfItemsInSection(0);
+    override func prepare() {
+        let itemCount = self.collectionView?.numberOfItems(inSection: 0);
         let layoutAttr = NSMutableDictionary();
         var y : CGFloat = 0
         var x : CGFloat = 0;
-        for (var i = 0; i<itemCount; i += 1) {
-            let indexPath = NSIndexPath(forItem: i, inSection: 0);
-            let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+        
+        for i in 0..<itemCount! {
+            let indexPath = IndexPath(item: i, section: 0);
+            let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
             var frame : CGRect
             if (indexPath.row == 0) {
                 x = 0;
                 y = 0;
-                frame = CGRectMake(x,  y, self.itemSize.width, self.itemSize.height);
+                frame = CGRect(x: x,  y: y, width: self.itemSize.width, height: self.itemSize.height);
                 x += self.itemSize.width;
             }else if (indexPath.row % 2 == 0 ) {
                 y += self.itemSize.height;
                 x -= self.itemSize.width;
-                frame = CGRectMake(x,  y, self.itemSize.width, self.itemSize.height);
+                frame = CGRect(x: x,  y: y, width: self.itemSize.width, height: self.itemSize.height);
                 if (x <= 0) {
                     x += self.itemSize.width;
                 }else{
                     x -= self.itemSize.width;
                 }
             }else{
-                frame = CGRectMake(x,  y, self.itemSize.width, self.itemSize.height);
+                frame = CGRect(x: x,  y: y, width: self.itemSize.width, height: self.itemSize.height);
                 x += self.itemSize.width;
             }
             attributes.frame=frame;
@@ -64,33 +78,34 @@ class JGTransitionLayout: UICollectionViewLayout {
         layoutAttributes=layoutAttr;
     }
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var layoutAttr = [UICollectionViewLayoutAttributes]();
-        layoutAttributes.enumerateKeysAndObjectsUsingBlock { (indexPath, attributes, stop) -> Void in
-            if (CGRectIntersectsRect(rect, attributes.frame)){
-                layoutAttr.append(attributes as! UICollectionViewLayoutAttributes)
+        layoutAttributes.enumerateKeysAndObjects({ (indexPath, attributes, stop) -> Void in
+            let attributes = attributes as! UICollectionViewLayoutAttributes
+            if (rect.intersects(attributes.frame)){
+                layoutAttr.append(attributes)
             }
-        }
+        })
         return layoutAttr
     }
     
-    override func collectionViewContentSize() -> CGSize {
-        let itemCount = self.collectionView?.numberOfItemsInSection(0)
+    override var collectionViewContentSize : CGSize {
+        let itemCount = self.collectionView?.numberOfItems(inSection: 0)
         let width = self.collectionView!.frame.size.width
         let height = self.itemSize.height * CGFloat(itemCount! / 2)
-        return CGSizeMake(width, height);
+        return CGSize(width: width, height: height);
     }
     
-    override func initialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+    
+    override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return nil
     }
     
-    override func finalLayoutAttributesForDisappearingItemAtIndexPath(itemIndexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+    override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return nil
     }
     
-    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return self.layoutAttributes[indexPath] as? UICollectionViewLayoutAttributes
     }
-    
 }
